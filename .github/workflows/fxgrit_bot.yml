@@ -1,0 +1,70 @@
+name: FXGrit VIP Bot
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  schedule:
+    # हर 5 मिनट पर चलाने के लिए cron (UTC time)
+    - cron: '*/5 * * * *'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install nsepython pytz
+
+      # 4️⃣ Run FXGrit VIP Bot with market hours check
+      - name: Run FXGrit VIP Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_VIP_CHAT_ID }}
+        run: |
+          python - <<'EOF'
+          import datetime
+          import pytz
+          from nsepython import holidays
+          import os
+
+          # NSE market hours (IST)
+          MARKET_OPEN = datetime.time(9, 15)
+          MARKET_CLOSE = datetime.time(15, 30)
+          IST = pytz.timezone('Asia/Kolkata')
+          now = datetime.datetime.now(IST)
+
+          # Weekend check
+          if now.weekday() >= 5:
+              print(f"⏳ Weekend. Market closed: {now}")
+              exit(0)
+
+          # NSE holiday check
+          nse_holidays = holidays(year=now.year)
+          today_str = now.strftime('%Y-%m-%d')
+          if today_str in nse_holidays:
+              print(f"⏳ NSE Holiday. Market closed: {today_str}")
+              exit(0)
+
+          # Market hours check
+          if not (MARKET_OPEN <= now.time() <= MARKET_CLOSE):
+              print(f"⏳ Market closed now. Time: {now.time()}")
+              exit(0)
+
+          # Run bot only if market is open
+          os.system("python fxgrit_bot.py")
+          EOF
