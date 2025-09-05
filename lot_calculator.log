@@ -1,0 +1,48 @@
+Traceback (most recent call last):
+  File "/storage/emulated/0/FXGrit/FXGritApp/lot_calculator.py", line 33, in <module>
+    calculate_lot()
+  File "/storage/emulated/0/FXGrit/FXGritApp/lot_calculator.py", line 16, in calculate_lot
+    df = pd.read_excel(log_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 495, in read_excel
+    io = ExcelFile(
+         ^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 1567, in __init__
+    self._reader = self._engines[engine](
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/pandas/io/excel/_openpyxl.py", line 553, in __init__
+    super().__init__(
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 573, in __init__
+    self.book = self.load_workbook(self.handles.handle, engine_kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/pandas/io/excel/_openpyxl.py", line 572, in load_workbook
+    return load_workbook(
+           ^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/reader/excel.py", line 348, in load_workbook
+    reader.read()
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/reader/excel.py", line 303, in read
+    self.read_worksheets()
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/reader/excel.py", line 214, in read_worksheets
+    for sheet, rel in self.parser.find_sheets():
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/reader/workbook.py", line 86, in find_sheets
+    yield sheet, self.rels[sheet.id]
+                 ^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/reader/workbook.py", line 39, in rels
+    self._rels = get_dependents(self.archive, get_rels_path(self.workbook_part_name)).to_dict()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/openpyxl/packaging/relationship.py", line 112, in get_dependents
+    src = archive.read(filename)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/zipfile/__init__.py", line 1572, in read
+    return fp.read()
+           ^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/zipfile/__init__.py", line 978, in read
+    buf += self._read1(self.MAX_N)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/zipfile/__init__.py", line 1060, in _read1
+    data += self._read2(n - len(data))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/zipfile/__init__.py", line 1095, in _read2
+    raise EOFError
+EOFError

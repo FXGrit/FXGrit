@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/storage/emulated/0/FXGrit/FXGritApp/fxgrit_macd_volume_signal_gui.py", line 2, in <module>
+    import tkinter as tk
+ModuleNotFoundError: No module named 'tkinter'
