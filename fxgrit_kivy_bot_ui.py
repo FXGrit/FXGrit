@@ -8,7 +8,7 @@ import time
 class TradingBotLayout(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', **kwargs)
-        self.label = Label(text="FXPilot Bot Ready", font_size=20)
+        self.label = Label(text="FXGrit Bot Ready", font_size=20)
         self.add_widget(self.label)
         
         self.start_btn = Button(text="Start Bot", size_hint=(1, 0.2))
@@ -39,8 +39,8 @@ class TradingBotLayout(BoxLayout):
         if self.running:
             self.label.text = "✅ Scan complete"
 
-class FXPilotApp(App):
+class FXGritApp(App):
     def build(self):
         return TradingBotLayout()
 
-FXPilotApp().run()
+FXGritApp().run()
